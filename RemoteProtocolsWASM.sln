@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Server", "RemoteProtocolsWASM\Server\RemoteProtocolsWASM.Server.csproj", "{F46D4AD8-1C35-406E-B16B-69A0CF08330C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Client", "RemoteProtocolsWASM\Client\RemoteProtocolsWASM.Client.csproj", "{61CA2E3A-6AFA-4A3F-AAC5-9346ED9EB517}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Shared", "RemoteProtocolsWASM\Shared\RemoteProtocolsWASM.Shared.csproj", "{1C038492-BA3C-445A-B706-EA53F7B6E5B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Application", "RemoteProtocolsWASM.Application\RemoteProtocolsWASM.Application.csproj", "{DF96DEC0-D22B-422B-B7A2-954D6B655C0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Domain", "RemoteProtocolsWASM.Domain\RemoteProtocolsWASM.Domain.csproj", "{88606EDB-F71B-4E46-8433-60182F9817DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Infrastructure", "RemoteProtocolsWASM.Infrastructure\RemoteProtocolsWASM.Infrastructure.csproj", "{4A87DA49-7139-4509-8D46-62A99302DF1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F46D4AD8-1C35-406E-B16B-69A0CF08330C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F46D4AD8-1C35-406E-B16B-69A0CF08330C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F46D4AD8-1C35-406E-B16B-69A0CF08330C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F46D4AD8-1C35-406E-B16B-69A0CF08330C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61CA2E3A-6AFA-4A3F-AAC5-9346ED9EB517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61CA2E3A-6AFA-4A3F-AAC5-9346ED9EB517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61CA2E3A-6AFA-4A3F-AAC5-9346ED9EB517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61CA2E3A-6AFA-4A3F-AAC5-9346ED9EB517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C038492-BA3C-445A-B706-EA53F7B6E5B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C038492-BA3C-445A-B706-EA53F7B6E5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C038492-BA3C-445A-B706-EA53F7B6E5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C038492-BA3C-445A-B706-EA53F7B6E5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF96DEC0-D22B-422B-B7A2-954D6B655C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF96DEC0-D22B-422B-B7A2-954D6B655C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF96DEC0-D22B-422B-B7A2-954D6B655C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF96DEC0-D22B-422B-B7A2-954D6B655C0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88606EDB-F71B-4E46-8433-60182F9817DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88606EDB-F71B-4E46-8433-60182F9817DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88606EDB-F71B-4E46-8433-60182F9817DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88606EDB-F71B-4E46-8433-60182F9817DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A87DA49-7139-4509-8D46-62A99302DF1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A87DA49-7139-4509-8D46-62A99302DF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A87DA49-7139-4509-8D46-62A99302DF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A87DA49-7139-4509-8D46-62A99302DF1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68D60048-066F-4760-94DA-66447446ACC0}
+	EndGlobalSection
+EndGlobal
