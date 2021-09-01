@@ -9,7 +9,10 @@ namespace RemoteProtocolsWASM.Domain.Model
 {
     public class User : IdentityUser
     {
-        public virtual Protocol Protocol { get; set; }
-        public virtual AspNetUsersInfo AspNetUsersInfo { get; set; }
+        public virtual ICollection<Protocol> ProtocolsManagers { get; set; }
+        public virtual ICollection<Protocol> ProtocolsTechnicans { get; set; }
+        public virtual ICollection<Protocol> ProtocolsAccounting { get; set; }
+        public virtual ICollection<AspNetUsersInfo> Users { get; set; }
+        public virtual ICollection<AspNetUsersInfo> UserManagers { get; set; }
     }
 }

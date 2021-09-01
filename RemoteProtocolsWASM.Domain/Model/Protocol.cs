@@ -49,10 +49,14 @@ namespace RemoteProtocolsWASM.Domain.Model
         public bool IsRepairProtocol { get; set; }
         public string Warehouse { get; set; }
         public string Notes { get; set; }
-        public virtual User User { get; set; }
+        public virtual User UserTechnician { get; set; }
+        public virtual User UserManager { get; set; }
+        public virtual User UserAccouting { get; set; }
         public virtual Car Car { get; set; }
         public virtual Event Event { get; set; }
         public ICollection<ProtocolsAssembly> ProtocolsAssemblies { get; set; }
         public ICollection<ProtocolsDisassembly> ProtocolsDisassemblies { get; set; }
+        public virtual Protocol ParrentsProtocol { get; set; }
+        public virtual ICollection<Protocol> ParrentsProtocolCollection { get; set; }
     }
 }

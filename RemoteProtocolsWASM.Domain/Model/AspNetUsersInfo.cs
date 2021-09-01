@@ -19,6 +19,7 @@ namespace RemoteProtocolsWASM.Domain.Model
         public virtual Group Group { get; set; }
 
         public virtual User User { get; set; }
+        public virtual User Manager { get; set; }
 
     }
 }

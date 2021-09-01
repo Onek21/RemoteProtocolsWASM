@@ -8,7 +8,7 @@ namespace RemoteProtocolsWASM.Domain.Model
 {
     public class ProtocolsAssembly
     {
-        public int ProtocolAssemblyId { get; set; }
+        public int ProtocolsAssemblyId { get; set; }
         public int ProtocolId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }

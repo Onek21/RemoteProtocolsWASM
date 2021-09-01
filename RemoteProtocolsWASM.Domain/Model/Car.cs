@@ -12,5 +12,6 @@ namespace RemoteProtocolsWASM.Domain.Model
         public string RegistrationNumber { get; set; }
         public string Model { get; set; }
         public ICollection<Protocol> Protocols { get; set; }
+        public ICollection<AspNetUsersInfo> AspNetUsersInfos { get; set; }
     }
 }
