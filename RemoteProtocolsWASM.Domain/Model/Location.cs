@@ -13,5 +13,6 @@ namespace RemoteProtocolsWASM.Domain.Model
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
+        public bool IsActivce { get; set; }
     }
 }

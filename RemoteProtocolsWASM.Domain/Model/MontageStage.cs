@@ -10,6 +10,7 @@ namespace RemoteProtocolsWASM.Domain.Model
     {
         public int MontageStageId { get; set; }
         public string Name { get; set; }
+        public bool IsActivce { get; set; }
         public ICollection<MontageProducts> MontageProducts { get; set; }
     }
 }

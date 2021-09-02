@@ -11,6 +11,7 @@ namespace RemoteProtocolsWASM.Domain.Model
         public int GroupId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
+        public bool IsActivce { get; set; }
         public ICollection<AspNetUsersInfo> AspNetUsersInfos { get; set; }
     }
 }

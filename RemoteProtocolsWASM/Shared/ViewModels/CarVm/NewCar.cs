@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RemoteProtocolsWASM.Domain.Model
+namespace RemoteProtocolsWASM.Shared.ViewModels.CarVm
 {
-    public class Car
+    public class NewCar
     {
         public int CarId { get; set; }
         public string RegistrationNumber { get; set; }
         public string Model { get; set; }
-        public bool IsActivce { get; set; }
-        public ICollection<Protocol> Protocols { get; set; }
-        public ICollection<AspNetUsersInfo> AspNetUsersInfos { get; set; }
     }
 }

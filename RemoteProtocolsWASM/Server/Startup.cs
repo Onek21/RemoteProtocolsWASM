@@ -32,6 +32,7 @@ namespace RemoteProtocolsWASM.Server
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAplication();
+            services.AddInfrastructure();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
