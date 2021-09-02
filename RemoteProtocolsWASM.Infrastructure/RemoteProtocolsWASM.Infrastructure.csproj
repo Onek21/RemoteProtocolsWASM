@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
@@ -20,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RemoteProtocolsWASM.Application\RemoteProtocolsWASM.Application.csproj" />
     <ProjectReference Include="..\RemoteProtocolsWASM.Domain\RemoteProtocolsWASM.Domain.csproj" />
   </ItemGroup>
 

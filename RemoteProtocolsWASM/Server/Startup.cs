@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RemoteProtocolsWASM.Application;
 using RemoteProtocolsWASM.Domain.Model;
 using RemoteProtocolsWASM.Infrastructure;
-using RemoteProtocolsWASM.Server.Models;
 using System.Linq;
 
 namespace RemoteProtocolsWASM.Server
@@ -30,6 +30,8 @@ namespace RemoteProtocolsWASM.Server
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAplication();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

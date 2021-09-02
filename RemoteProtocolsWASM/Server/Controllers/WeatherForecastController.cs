@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace RemoteProtocolsWASM.Server.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
