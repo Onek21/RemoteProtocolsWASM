@@ -45,7 +45,7 @@ namespace RemoteProtocolsWASM.Server
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddRazorPages();
         }
 

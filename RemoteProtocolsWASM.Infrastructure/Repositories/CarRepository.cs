@@ -1,4 +1,5 @@
 ﻿using RemoteProtocolsWASM.Domain.Interface;
+using RemoteProtocolsWASM.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace RemoteProtocolsWASM.Infrastructure.Repositories
         public CarRepository(Context context)
         {
             _context = context;
+        }
+
+        public int CreateCar(Car car)
+        {
+            _context.Cars.Add(car);
+            _context.SaveChanges();
+            return car.CarId;
         }
     }
 }

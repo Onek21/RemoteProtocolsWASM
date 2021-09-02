@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RemoteProtocolsWASM.Application.Services;
 using RemoteProtocolsWASM.Application.Interfaces;
+using RemoteProtocolsWASM.Shared.Mapping;
 
 namespace RemoteProtocolsWASM.Application
 {
@@ -16,7 +17,7 @@ namespace RemoteProtocolsWASM.Application
         public static IServiceCollection AddAplication(this IServiceCollection services)
         {
             services.AddTransient<ICarService, CarService>();
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
 
             return services;
         }
