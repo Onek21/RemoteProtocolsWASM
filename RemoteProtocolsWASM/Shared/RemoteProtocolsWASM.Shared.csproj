@@ -7,4 +7,12 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RemoteProtocolsWASM.Domain\RemoteProtocolsWASM.Domain.csproj" />
+  </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RemoteProtocolsWASM.Domain.Interface
 {
-    public class ICarRepository
+    public interface ICarRepository
     {
     }
 }

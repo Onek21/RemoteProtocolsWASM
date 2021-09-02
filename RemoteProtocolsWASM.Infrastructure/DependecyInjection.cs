@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RemoteProtocolsWASM.Application.Interfaces;
 using RemoteProtocolsWASM.Application.Services;
+using RemoteProtocolsWASM.Domain.Interface;
+using RemoteProtocolsWASM.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace RemoteProtocolsWASM.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddTransient<ICarService, CarService>();
+            services.AddTransient<ICarRepository, CarRepository>();
             return services;
         }
     }

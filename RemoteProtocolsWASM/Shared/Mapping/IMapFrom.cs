@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RemoteProtocolsWASM.Application.Mapping
+namespace RemoteProtocolsWASM.Shared.Mapping
 {
     public interface IMapFrom<T>
     {

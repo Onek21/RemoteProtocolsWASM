@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RemoteProtocolsWASM.Application.Mapping
+namespace RemoteProtocolsWASM.Shared.Mapping
 {
     public class MappingProfile : Profile
     {
