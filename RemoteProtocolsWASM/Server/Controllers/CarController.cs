@@ -25,12 +25,39 @@ namespace RemoteProtocolsWASM.Server.Controllers
         {
             var id = _carService.CreateCar(model);
 
-            if(id != 0)
+            if (id != 0)
             {
                 return Ok();
             }
             return NotFound();
 
         }
+        [HttpGet("GetActiveCars")]
+        public ActionResult<IEnumerable<CarListVm>> GetActiveCars()
+        {
+            var cars = _carService.GetActiveCars();
+            if (cars.Count() > 0)
+            {
+                return Ok(cars);
+            }
+            return NotFound();
+        }
+        [HttpPut("UpdateCar/{CarId}")]
+        public IActionResult EditCar(NewCarVm carVm)
+        {
+            if (ModelState.IsValid)
+            {
+                _carService.UpdateCar(carVm);
+                return NoContent();
+            }
+            return NotFound();
+        }
+        [HttpGet("CarDetail/{id}")]
+        public ActionResult<CarDetailVm> CarDetails(int id)
+        {
+            var car = _carService.CarDetails(id);
+            return Ok(car);
+        }
+         
     }
 }

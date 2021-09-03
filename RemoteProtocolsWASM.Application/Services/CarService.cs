@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using RemoteProtocolsWASM.Application.Interfaces;
 using RemoteProtocolsWASM.Domain.Interface;
 using RemoteProtocolsWASM.Domain.Model;
@@ -27,6 +28,25 @@ namespace RemoteProtocolsWASM.Application.Services
             var car = _mapper.Map<Car>(model);
             var id = _carRepo.CreateCar(car);
             return id;
+        }
+
+        public List<CarListVm> GetActiveCars()
+        {
+            var cars = _carRepo.GetCars().Where(x => x.IsActivce == true).ProjectTo<CarListVm>(_mapper.ConfigurationProvider).ToList();
+            return cars;
+        }
+
+        public void UpdateCar(NewCarVm model)
+        {
+            var car = _mapper.Map<Car>(model);
+            _carRepo.UpdateCar(car);
+        }
+
+        public CarDetailVm CarDetails(int id)
+        {
+            var car = _carRepo.GetCarById(id);
+            var carVm = _mapper.Map<CarDetailVm>(car);
+            return carVm;
         }
     }
 }

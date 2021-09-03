@@ -9,6 +9,9 @@ namespace RemoteProtocolsWASM.Application.Interfaces
 {
     public interface ICarService
     {
+        CarDetailVm CarDetails(int id);
         int CreateCar(NewCarVm model);
+        List<CarListVm> GetActiveCars();
+        void UpdateCar(NewCarVm model);
     }
 }
