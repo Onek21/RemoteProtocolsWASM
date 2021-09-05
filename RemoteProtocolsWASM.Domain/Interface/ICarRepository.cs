@@ -10,6 +10,7 @@ namespace RemoteProtocolsWASM.Domain.Interface
     public interface ICarRepository
     {
         int CreateCar(Car car);
+        void DeactivateCar(Car car);
         Car GetCarById(int id);
         IQueryable<Car> GetCars();
         void UpdateCar(Car car);

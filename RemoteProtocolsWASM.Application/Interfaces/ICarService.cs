@@ -11,6 +11,7 @@ namespace RemoteProtocolsWASM.Application.Interfaces
     {
         CarDetailVm CarDetails(int id);
         int CreateCar(NewCarVm model);
+        void DeactivateCar(NewCarVm model);
         List<CarListVm> GetActiveCars();
         void UpdateCar(NewCarVm model);
     }

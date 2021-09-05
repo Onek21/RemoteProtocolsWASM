@@ -42,7 +42,7 @@ namespace RemoteProtocolsWASM.Server.Controllers
             }
             return NotFound();
         }
-        [HttpPut("UpdateCar/{CarId}")]
+        [HttpPut("UpdateCar/{id}")]
         public IActionResult EditCar(NewCarVm carVm)
         {
             if (ModelState.IsValid)
@@ -57,6 +57,16 @@ namespace RemoteProtocolsWASM.Server.Controllers
         {
             var car = _carService.CarDetails(id);
             return Ok(car);
+        }
+        [HttpPut("DeactivateCar/{id}")]
+        public IActionResult DeactivateCar(NewCarVm carVm)
+        {
+            if(ModelState.IsValid)
+            {
+                _carService.DeactivateCar(carVm);
+                return NoContent();
+            }
+            return NotFound();
         }
          
     }

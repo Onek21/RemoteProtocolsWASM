@@ -48,5 +48,12 @@ namespace RemoteProtocolsWASM.Application.Services
             var carVm = _mapper.Map<CarDetailVm>(car);
             return carVm;
         }
+
+        public void DeactivateCar(NewCarVm model)
+        {
+            model.IsActive = false;
+            var car = _mapper.Map<Car>(model);
+            _carRepo.DeactivateCar(car);
+        }
     }
 }

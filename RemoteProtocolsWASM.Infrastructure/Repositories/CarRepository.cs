@@ -43,5 +43,12 @@ namespace RemoteProtocolsWASM.Infrastructure.Repositories
             var car = _context.Cars.FirstOrDefault(x => x.CarId == id);
             return car;
         }
+
+        public void DeactivateCar(Car car)
+        {
+            _context.Attach(car);
+            _context.Entry(car).Property("IsActive").IsModified = true;
+            _context.SaveChanges();
+        }
     }
 }
