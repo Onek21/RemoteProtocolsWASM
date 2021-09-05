@@ -14,7 +14,7 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.CarVm
         public int CarId { get; set; }
         public string RegistrationNumber { get; set; }
         public string Model { get; set; }
-        public bool IsActivce { get; set; }
+        public bool IsActive { get; set; }
 
         public void Mapping(Profile profile)
         {

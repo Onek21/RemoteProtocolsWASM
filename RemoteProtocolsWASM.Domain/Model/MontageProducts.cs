@@ -12,7 +12,7 @@ namespace RemoteProtocolsWASM.Domain.Model
         public string Code { get; set; }
         public string Name { get; set; }
         public int MontageStageId { get; set; }
-        public bool IsActivce { get; set; }
+        public bool IsActive { get; set; }
         public virtual MontageStage MontageStage { get; set; }
     }
 }

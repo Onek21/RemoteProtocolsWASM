@@ -11,7 +11,7 @@ namespace RemoteProtocolsWASM.Domain.Model
         public int CarId { get; set; }
         public string RegistrationNumber { get; set; }
         public string Model { get; set; }
-        public bool IsActivce { get; set; }
+        public bool IsActive { get; set; }
         public ICollection<Protocol> Protocols { get; set; }
         public ICollection<AspNetUsersInfo> AspNetUsersInfos { get; set; }
     }

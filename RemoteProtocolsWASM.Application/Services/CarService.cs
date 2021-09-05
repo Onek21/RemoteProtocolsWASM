@@ -24,7 +24,7 @@ namespace RemoteProtocolsWASM.Application.Services
         }
         public int CreateCar(NewCarVm model)
         {
-            model.IsActivce = true;
+            model.IsActive = true;
             var car = _mapper.Map<Car>(model);
             var id = _carRepo.CreateCar(car);
             return id;
@@ -32,7 +32,7 @@ namespace RemoteProtocolsWASM.Application.Services
 
         public List<CarListVm> GetActiveCars()
         {
-            var cars = _carRepo.GetCars().Where(x => x.IsActivce == true).ProjectTo<CarListVm>(_mapper.ConfigurationProvider).ToList();
+            var cars = _carRepo.GetCars().Where(x => x.IsActive == true).ProjectTo<CarListVm>(_mapper.ConfigurationProvider).ToList();
             return cars;
         }
 
