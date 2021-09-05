@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Radzen;
+using RemoteProtocolsWASM.Client.Application.Interfaces;
+using RemoteProtocolsWASM.Client.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -25,6 +28,15 @@ namespace RemoteProtocolsWASM.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("RemoteProtocolsWASM.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
+            builder.Services.AddScoped<DialogService>();
+            builder.Services.AddScoped<NotificationService>();
+            builder.Services.AddScoped<TooltipService>();
+            builder.Services.AddScoped<ContextMenuService>();
+
+            builder.Services.AddHttpClient<ICarService, CarService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44309/");
+            });
 
             await builder.Build().RunAsync();
         }

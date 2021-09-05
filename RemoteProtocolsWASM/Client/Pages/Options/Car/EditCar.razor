@@ -1,0 +1,58 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.CarVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject ICarService CarSerivce
+@inject DialogService DialogService
+
+@page "/Pages/Options/Car/EditCar/{CarId}"
+
+<div class="content">
+    <RadzenTemplateForm Data="@newCar" TItem="NewCarVm" Submit="UpdateCar" >
+        <ChildContent>
+            <div class="row">
+
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Numer rejestracyjny:" Component="RegistrationNumber" />
+                </div>
+
+                <div class="col-md-8">
+                    <RadzenTextBox Name="RegistrationNumber" @bind-Value="@newCar.RegistrationNumber" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Model:" Component="Model" />
+                </div>
+
+                <div class="col-md-8">
+                    <RadzenTextBox Name="Model" @bind-Value="@newCar.Model" />
+                </div>
+
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                    <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="save" />
+                    <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+                </div>
+            </div>
+        </ChildContent>
+    </RadzenTemplateForm>
+</div>
+@code {
+    [Parameter]
+    public int CarId { get; set; }
+
+    NewCarVm newCar = new NewCarVm();
+
+    protected override async Task OnInitializedAsync()
+    {
+        newCar = await CarSerivce.GetCarDetail(CarId);
+    }
+
+    private async Task UpdateCar()
+    {
+        await CarSerivce.EditCar(newCar);
+        DialogService.Close(true);
+    }
+}

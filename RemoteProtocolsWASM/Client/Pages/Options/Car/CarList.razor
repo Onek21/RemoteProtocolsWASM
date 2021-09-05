@@ -1,0 +1,69 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.CarVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject ICarService CarSerivce
+@inject DialogService DialogService
+
+@page "/Pages/Options/Car/CarList"
+
+
+<RadzenButton Text="Dodaj samochód" Click=@CreateCar />
+<RadzenGrid @ref="GridCar" AllowPaging="true" AllowSorting="true" AllowFiltering="true" Data="@CarsList" TItem="CarListVm">
+    <Columns>
+        <RadzenGridColumn TItem="CarListVm" Context="data" Property="RegistrationNumber" Title="Numer rejestracyjny" Type="string" />
+        <RadzenGridColumn TItem="CarListVm" Context="data" Property="Model" Title="Model" Type="string" />
+        <RadzenGridColumn TItem="CarListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="() => EditCar(data.CarId)" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="CarListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="delete" Size="ButtonSize.Small" Click="() => DeactivateCar(data.CarId)" />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@code {
+    public IEnumerable<CarListVm> CarsList { get; set; }
+    RadzenGrid<CarListVm> GridCar;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CarsList = await CarSerivce.GetActiveCars();
+        DialogService.OnClose += Close;
+    }
+
+    public async Task CreateCar()
+    {
+        await DialogService.OpenAsync<NewCar>($"Dodaj samochód",
+             null,
+             new DialogOptions() { Width = "700px", Height = "530px" });
+    }
+
+    async void Close(dynamic result)
+    {
+        CarsList = await CarSerivce.GetActiveCars();
+        await GridCar.Reload();
+        StateHasChanged();
+    }
+
+    public async Task EditCar(int id)
+    {
+        {
+            await DialogService.OpenAsync<EditCar>($"Edytuj samochód",
+                   new Dictionary<string, object>() { { "CarId", id } },
+                   new DialogOptions() { Width = "700px", Height = "530px" });
+        }
+    }
+
+    public async Task DeactivateCar(int id)
+    {
+        {
+            await DialogService.OpenAsync<DeactivateCar>($"Usuń samochód",
+                   new Dictionary<string, object>() { { "CarId", id } },
+                   new DialogOptions() { Width = "700px", Height = "200px" });
+        }
+    }
+
+}

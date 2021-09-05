@@ -1,37 +1,16 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">RemoteProtocolsWASM</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-    </ul>
-</div>
+﻿<RadzenCard Style="width: 100%;">
+    <RadzenMenu Style="position:relative;z-index:1">
+        <RadzenMenuItem Text="Ustawienia" Icon="save">
+            <RadzenMenuItem Text="Użytkownicy" Path="/Pages/Options/Users/UsersList" Icon="person"></RadzenMenuItem>
+            <RadzenMenuItem Text="Lista samochodów" Path="/Pages/Options/Car/CarList" Icon="directions_car"></RadzenMenuItem>
+            <RadzenMenuItem Text="Grupy" Path="/Pages/Options/Groups/GroupsList" Icon="group"></RadzenMenuItem>
+            <RadzenMenuItem Text="Zdarzenia" Path="/Pages/Options/Events/EventsList" Icon="event"></RadzenMenuItem>
+            <RadzenMenuItem Text="Lokalizacje" Path="/Pages/Options/Locations/LocationsList" Icon="place"></RadzenMenuItem>
+            <RadzenMenuItem Text="Projekty" Path="/Pages/Options/Projects/ProjectsList" Icon="domain_verification"></RadzenMenuItem>
+        </RadzenMenuItem>
+    </RadzenMenu>
+</RadzenCard>
 
 @code {
-    private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
 }

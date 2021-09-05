@@ -42,10 +42,10 @@ namespace RemoteProtocolsWASM.Application.Services
             _carRepo.UpdateCar(car);
         }
 
-        public CarDetailVm CarDetails(int id)
+        public NewCarVm CarDetails(int id)
         {
             var car = _carRepo.GetCarById(id);
-            var carVm = _mapper.Map<CarDetailVm>(car);
+            var carVm = _mapper.Map<NewCarVm>(car);
             return carVm;
         }
 

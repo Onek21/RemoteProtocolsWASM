@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Server", "RemoteProtocolsWASM\Server\RemoteProtocolsWASM.Server.csproj", "{F46D4AD8-1C35-406E-B16B-69A0CF08330C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProtocolsWASM.Server", "RemoteProtocolsWASM\Server\RemoteProtocolsWASM.Server.csproj", "{F46D4AD8-1C35-406E-B16B-69A0CF08330C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Client", "RemoteProtocolsWASM\Client\RemoteProtocolsWASM.Client.csproj", "{61CA2E3A-6AFA-4A3F-AAC5-9346ED9EB517}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProtocolsWASM.Client", "RemoteProtocolsWASM\Client\RemoteProtocolsWASM.Client.csproj", "{61CA2E3A-6AFA-4A3F-AAC5-9346ED9EB517}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Shared", "RemoteProtocolsWASM\Shared\RemoteProtocolsWASM.Shared.csproj", "{1C038492-BA3C-445A-B706-EA53F7B6E5B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProtocolsWASM.Shared", "RemoteProtocolsWASM\Shared\RemoteProtocolsWASM.Shared.csproj", "{1C038492-BA3C-445A-B706-EA53F7B6E5B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Application", "RemoteProtocolsWASM.Application\RemoteProtocolsWASM.Application.csproj", "{DF96DEC0-D22B-422B-B7A2-954D6B655C0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProtocolsWASM.Application", "RemoteProtocolsWASM.Application\RemoteProtocolsWASM.Application.csproj", "{DF96DEC0-D22B-422B-B7A2-954D6B655C0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Domain", "RemoteProtocolsWASM.Domain\RemoteProtocolsWASM.Domain.csproj", "{88606EDB-F71B-4E46-8433-60182F9817DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProtocolsWASM.Domain", "RemoteProtocolsWASM.Domain\RemoteProtocolsWASM.Domain.csproj", "{88606EDB-F71B-4E46-8433-60182F9817DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocolsWASM.Infrastructure", "RemoteProtocolsWASM.Infrastructure\RemoteProtocolsWASM.Infrastructure.csproj", "{4A87DA49-7139-4509-8D46-62A99302DF1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProtocolsWASM.Infrastructure", "RemoteProtocolsWASM.Infrastructure\RemoteProtocolsWASM.Infrastructure.csproj", "{4A87DA49-7139-4509-8D46-62A99302DF1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
