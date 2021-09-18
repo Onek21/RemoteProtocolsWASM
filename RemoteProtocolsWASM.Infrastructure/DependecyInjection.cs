@@ -2,7 +2,9 @@
 using RemoteProtocolsWASM.Application.Interfaces;
 using RemoteProtocolsWASM.Application.Services;
 using RemoteProtocolsWASM.Domain.Interface;
+using RemoteProtocolsWASM.Domain.Interface.XLInterface;
 using RemoteProtocolsWASM.Infrastructure.Repositories;
+using RemoteProtocolsWASM.Infrastructure.Repositories.XLRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace RemoteProtocolsWASM.Infrastructure
         {
             services.AddTransient<ICarRepository, CarRepository>();
             services.AddTransient<IEventRepository, EventRepository>();
+            services.AddTransient<IWarehouseRepository, WarehouseRepository>();
             return services;
         }
     }

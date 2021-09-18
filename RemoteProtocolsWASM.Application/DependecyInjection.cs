@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using RemoteProtocolsWASM.Application.Services;
 using RemoteProtocolsWASM.Application.Interfaces;
 using RemoteProtocolsWASM.Shared.Mapping;
+using RemoteProtocolsWASM.Application.Interfaces.XLInterface;
+using RemoteProtocolsWASM.Application.Services.XLService;
 
 namespace RemoteProtocolsWASM.Application
 {
@@ -17,6 +19,7 @@ namespace RemoteProtocolsWASM.Application
         public static IServiceCollection AddAplication(this IServiceCollection services)
         {
             services.AddTransient<ICarService, CarService>();
+            services.AddTransient<IWarehouseService, WarehouseService>();
             services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
 
             return services;

@@ -31,6 +31,10 @@ namespace RemoteProtocolsWASM.Server
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<XLContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("XLConnection")));
+
             services.AddAplication();
             services.AddInfrastructure();
 
