@@ -16,6 +16,7 @@ namespace RemoteProtocolsWASM.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddTransient<ICarRepository, CarRepository>();
+            services.AddTransient<IEventRepository, EventRepository>();
             return services;
         }
     }
