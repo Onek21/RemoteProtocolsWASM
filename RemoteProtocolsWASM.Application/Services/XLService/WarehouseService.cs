@@ -27,5 +27,18 @@ namespace RemoteProtocolsWASM.Application.Services.XLService
             var warehouses = _warehouseRepo.GetWarehouses().Where(x=> (x.Name.StartsWith("Tech") && !x.Name.EndsWith("Dino")) || x.Name == "Serwis").ProjectTo<WarehouseListVm>(_mapper.ConfigurationProvider).ToList();
             return warehouses;
         }
+
+        public List<WarehouseListVm> GetWarehouseDinoList()
+        {
+            var warehouses = _warehouseRepo.GetWarehouses().Where(x => x.Name.StartsWith("Tech") && x.Name.EndsWith("DINO")).ProjectTo<WarehouseListVm>(_mapper.ConfigurationProvider).ToList();
+            return warehouses;
+        }
+
+        public List<WarehouseListVm> GetAllWarehouseList()
+        {
+            var warehouses = _warehouseRepo.GetWarehouses().Where(x => x.Name.StartsWith("Tech") || x.Name == "Serwis").ProjectTo<WarehouseListVm>(_mapper.ConfigurationProvider).ToList();
+            return warehouses;
+        }
+
     }
 }

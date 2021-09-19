@@ -9,6 +9,8 @@ namespace RemoteProtocolsWASM.Application.Interfaces.XLInterface
 {
     public interface IWarehouseService
     {
+        List<WarehouseListVm> GetAllWarehouseList();
+        List<WarehouseListVm> GetWarehouseDinoList();
         List<WarehouseListVm> GetWarehouseItecomList();
     }
 }

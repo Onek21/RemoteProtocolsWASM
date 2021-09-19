@@ -30,5 +30,27 @@ namespace RemoteProtocolsWASM.Server.Controllers.XLControllers
             }
             return NotFound();
         }
+
+        [HttpGet("GetWarehouseDino")]
+        public ActionResult<IEnumerable<WarehouseListVm>> GetWarehouseDino()
+        {
+            var warehouses = _warehouseService.GetWarehouseDinoList();
+            if(warehouses.Count > 0)
+            {
+                return Ok(warehouses);
+            }
+            return NotFound();
+        }
+
+        [HttpGet("GetAllWarehouse")]
+        public ActionResult<IEnumerable<WarehouseListVm>> GetAllWarehouse()
+        {
+            var warehouses = _warehouseService.GetAllWarehouseList();
+            if (warehouses.Count > 0)
+            {
+                return Ok(warehouses);
+            }
+            return NotFound();
+        }
     }
 }
