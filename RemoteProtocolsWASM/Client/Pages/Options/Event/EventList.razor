@@ -1,0 +1,67 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.EventVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject IEventService EventService
+@inject DialogService DialogService
+
+@page "/Pages/Options/Event/EventList"
+
+<RadzenButton Text="Dodaj zdarzenie" Click=@CreateEvent />
+<RadzenGrid @ref="EventGrid" AllowPaging="true" AllowSorting="true" AllowFiltering="true" Data="@EventsList" TItem="EventListVm">
+    <Columns>
+        <RadzenGridColumn TItem="EventListVm" Context="data" Property="Code" Title="Kod" Type="string" />
+        <RadzenGridColumn TItem="EventListVm" Context="data" Property="Name" Title="Nazwa" Type="string" />
+        <RadzenGridColumn TItem="EventListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="() => EditEvent(data.EventId)" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="EventListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="delete" Size="ButtonSize.Small" Click="() => DeactivateEvent(data.EventId)" />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@code {
+    public IEnumerable<EventListVm> EventsList { get; set; }
+    RadzenGrid<EventListVm> EventGrid;
+
+    protected override async Task OnInitializedAsync()
+    {
+        EventsList = await EventService.GetActiveEvents();
+        DialogService.OnClose += Close;
+    }
+
+    async void Close(dynamic result)
+    {
+        EventsList = await EventService.GetActiveEvents();
+        await EventGrid.Reload();
+        StateHasChanged();
+    }
+
+    public async Task CreateEvent()
+    {
+        await DialogService.OpenAsync<NewEvent>($"Dodaj zdarzenie",
+             null,
+             new DialogOptions() { Width = "700px", Height = "530px" });
+    }
+
+    public async Task EditEvent(int id)
+    {
+        {
+            await DialogService.OpenAsync<EditEvent>($"Edytuj zdarzenie",
+                   new Dictionary<string, object>() { { "EventId", id } },
+                   new DialogOptions() { Width = "700px", Height = "530px" });
+        }
+    }
+
+    public async Task DeactivateEvent(int id)
+    {
+        {
+            await DialogService.OpenAsync<DeactivateEvent>($"Usuń zdarzenie",
+                   new Dictionary<string, object>() { { "EventId", id } },
+                   new DialogOptions() { Width = "700px", Height = "200px" });
+        }
+    }
+}

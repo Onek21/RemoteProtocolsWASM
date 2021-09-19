@@ -35,11 +35,10 @@ namespace RemoteProtocolsWASM.Server.Controllers
         public ActionResult<IEnumerable<EventListVm>> GetActiveCars()
         {
             var events = _eventService.GetActiveEvents();
-            if (events.Count > 0)
-            {
+           
+            
                 return Ok(events);
-            }
-            return NotFound();
+            
         }
 
         [HttpPut("UpdateEvent/{id}")]
