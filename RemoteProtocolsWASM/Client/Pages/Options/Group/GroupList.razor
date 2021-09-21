@@ -1,0 +1,68 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.GroupVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject IGroupService GroupSerivce
+@inject DialogService DialogService
+
+@page "/Pages/Options/Group/GroupList"
+
+<RadzenButton Text="Dodaj grupę" Click=@CreateGroup />
+<RadzenGrid @ref="GroupGrid" AllowPaging="true" AllowSorting="true" AllowFiltering="true" Data="@GroupsList" TItem="GroupListVm">
+    <Columns>
+        <RadzenGridColumn TItem="GroupListVm" Context="data" Property="Code" Title="Kod" Type="string" />
+        <RadzenGridColumn TItem="GroupListVm" Context="data" Property="Name" Title="Nazwa" Type="string" />
+        <RadzenGridColumn TItem="GroupListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="() => EditGroup(data.GroupId)" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="GroupListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="delete" Size="ButtonSize.Small" Click="() => DeactivateGroup(data.GroupId)" />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@code {
+    public IEnumerable<GroupListVm> GroupsList { get; set; }
+    RadzenGrid<GroupListVm> GroupGrid;
+
+    protected override async Task OnInitializedAsync()
+    {
+        GroupsList = await GroupSerivce.GetActiveGroups();
+        DialogService.OnClose += Close;
+    }
+
+
+    async void Close(dynamic result)
+    {
+        GroupsList = await GroupSerivce.GetActiveGroups();
+        await GroupGrid.Reload();
+        StateHasChanged();
+    }
+
+    public async Task CreateGroup()
+    {
+        await DialogService.OpenAsync<NewGroup>($"Dodaj grupe",
+             null,
+             new DialogOptions() { Width = "700px", Height = "530px" });
+    }
+
+    public async Task EditGroup(int id)
+    {
+        {
+            await DialogService.OpenAsync<EditGroup>($"Edytuj grupę",
+                   new Dictionary<string, object>() { { "GroupId", id } },
+                   new DialogOptions() { Width = "700px", Height = "530px" });
+        }
+    }
+
+    public async Task DeactivateGroup(int id)
+    {
+        {
+            await DialogService.OpenAsync<DeactivateGroup>($"Usuń grupę",
+                   new Dictionary<string, object>() { { "GroupId", id } },
+                   new DialogOptions() { Width = "700px", Height = "200px" });
+        }
+    }
+}

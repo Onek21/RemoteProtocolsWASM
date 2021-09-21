@@ -19,17 +19,17 @@ namespace RemoteProtocolsWASM.Client.Application.Services
 
         public async Task<IEnumerable<GroupListVm>> GetActiveGroups()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<GroupListVm>>("api/Group/GetActiveGroups")
+            return await _httpClient.GetFromJsonAsync<IEnumerable<GroupListVm>>("api/Group/GetActiveGroups");
         }
 
-        public async Task CreateCar(NewGroupVm model)
+        public async Task CreateGroup(NewGroupVm model)
         {
             await _httpClient.PostAsJsonAsync<NewGroupVm>("api/Group/CreateGroup", model);
         }
 
         public async Task<NewGroupVm> GetGroupDetail(int id)
         {
-            return await _httpClient.GetFromJsonAsync<NewGroupVm>($"api/Group/GroupDetail/{id}");
+            return await _httpClient.GetFromJsonAsync<NewGroupVm>($"api/Group/GroupDetails/{id}");
         }
         public async Task EditGroup(NewGroupVm model)
         {

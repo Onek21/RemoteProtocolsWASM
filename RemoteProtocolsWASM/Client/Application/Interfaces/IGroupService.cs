@@ -8,7 +8,7 @@ namespace RemoteProtocolsWASM.Client.Application.Interfaces
 {
     public interface IGroupService
     {
-        Task CreateCar(NewGroupVm model);
+        Task CreateGroup(NewGroupVm model);
         Task DeactivateGroup(NewGroupVm model);
         Task EditGroup(NewGroupVm model);
         Task<IEnumerable<GroupListVm>> GetActiveGroups();

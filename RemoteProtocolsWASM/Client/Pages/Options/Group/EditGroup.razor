@@ -1,0 +1,61 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.GroupVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject IGroupService GroupSerivce
+@inject DialogService DialogService
+
+@page "/Pages/Options/Group/EditGroup/{GroupId}"
+
+
+<div class="content">
+    <RadzenTemplateForm Data="@newGroup" TItem="NewGroupVm" Submit="UpdateGroup">
+        <DataAnnotationsValidator />
+            <div class="row">
+
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Kod:" Component="Code" />
+                </div>
+
+                <div class="col-md-8">
+                    <RadzenTextBox Name="Code" @bind-Value="@newGroup.Code" />
+                    <ValidationMessage For="@(() =>newGroup.Code)" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Nazwa:" Component="Name" />
+                </div>
+
+                <div class="col-md-8">
+                    <RadzenTextBox Name="Name" @bind-Value="@newGroup.Name" />
+                    <ValidationMessage For="@(() =>newGroup.Name)" />
+                </div>
+
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                    <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="save" />
+                    <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+                </div>
+            </div>
+    </RadzenTemplateForm>
+</div>
+
+@code {
+    [Parameter]
+    public int GroupId { get; set; }
+
+    NewGroupVm newGroup = new NewGroupVm();
+
+    protected override async Task OnInitializedAsync()
+    {
+        newGroup = await GroupSerivce.GetGroupDetail(GroupId);
+    }
+
+    private async Task UpdateGroup()
+    {
+        await GroupSerivce.EditGroup(newGroup);
+        DialogService.Close(true);
+    }
+}
