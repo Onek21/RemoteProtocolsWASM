@@ -43,6 +43,11 @@ namespace RemoteProtocolsWASM.Client
                 client.BaseAddress = new Uri("https://localhost:44309/");
             });
 
+            builder.Services.AddHttpClient<IGroupService, GroupService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44309/");
+            });
+
             await builder.Build().RunAsync();
         }
     }

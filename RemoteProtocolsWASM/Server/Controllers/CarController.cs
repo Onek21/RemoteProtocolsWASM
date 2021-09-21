@@ -36,11 +36,7 @@ namespace RemoteProtocolsWASM.Server.Controllers
         public ActionResult<IEnumerable<CarListVm>> GetActiveCars()
         {
             var cars = _carService.GetActiveCars();
-            if (cars.Count > 0)
-            {
-                return Ok(cars);
-            }
-            return NotFound();
+            return Ok(cars);
         }
         [HttpPut("UpdateCar/{id}")]
         public IActionResult EditCar(NewCarVm carVm)
