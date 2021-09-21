@@ -5,7 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Radzen;
 using RemoteProtocolsWASM.Client.Application.Interfaces;
+using RemoteProtocolsWASM.Client.Application.Interfaces.XLInterfaces;
 using RemoteProtocolsWASM.Client.Application.Services;
+using RemoteProtocolsWASM.Client.Application.Services.XLServices;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -49,6 +51,11 @@ namespace RemoteProtocolsWASM.Client
             });
 
             builder.Services.AddHttpClient<ILocationService, LocationService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44309/");
+            });
+
+            builder.Services.AddHttpClient<IProjectService, ProjectService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44309/");
             });
