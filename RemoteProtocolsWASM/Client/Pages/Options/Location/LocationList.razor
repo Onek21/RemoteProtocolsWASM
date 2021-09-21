@@ -1,0 +1,69 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.LocationVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject ILocationService LocationService
+@inject DialogService DialogService
+
+@page "/Pages/Options/Location/LocationList"
+
+<RadzenButton Text="Dodaj lokalizację" Click=@CreateLocation />
+<RadzenGrid @ref="LocationGrid" AllowPaging="true" AllowSorting="true" AllowFiltering="true" Data="@LocationsList" TItem="LocationListVm" PageSize="20" LogicalFilterOperator="LogicalFilterOperator.Or" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        <RadzenGridColumn TItem="LocationListVm" Context="data" Property="Code" Title="Kod" Type="string" />
+        <RadzenGridColumn TItem="LocationListVm" Context="data" Property="Name" Title="Nazwa" Type="string" />
+        <RadzenGridColumn TItem="LocationListVm" Context="data" Property="Address" Title="Adres" Type="string" />
+        <RadzenGridColumn TItem="LocationListVm" Context="data" Property="Email" Title="Email" Type="string" />
+        <RadzenGridColumn TItem="LocationListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="() => EditLocation(data.LocationId)" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="LocationListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="delete" Size="ButtonSize.Small" Click="() => DeactivateLocation(data.LocationId)" />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@code {
+    public IEnumerable<LocationListVm> LocationsList { get; set; }
+    RadzenGrid<LocationListVm> LocationGrid;
+
+    protected override async Task OnInitializedAsync()
+    {
+        LocationsList = await LocationService.GetActiveLocations();
+        DialogService.OnClose += Close;
+    }
+
+    async void Close(dynamic result)
+    {
+        LocationsList = await LocationService.GetActiveLocations();
+        await LocationGrid.Reload();
+        StateHasChanged();
+    }
+
+    public async Task CreateLocation()
+    {
+        await DialogService.OpenAsync<NewLocation>($"Dodaj lokalizację",
+             null,
+             new DialogOptions() { Width = "700px", Height = "530px" });
+    }
+
+    public async Task EditLocation(int id)
+    {
+        {
+            await DialogService.OpenAsync<EditLocation>($"Edytuj lokalizację",
+                   new Dictionary<string, object>() { { "LocationId", id } },
+                   new DialogOptions() { Width = "700px", Height = "530px" });
+        }
+    }
+
+    public async Task DeactivateLocation(int id)
+    {
+        {
+            await DialogService.OpenAsync<DeactivateLocation>($"Usuń lokalizacje",
+                   new Dictionary<string, object>() { { "LocationId", id } },
+                   new DialogOptions() { Width = "700px", Height = "200px" });
+        }
+    }
+}

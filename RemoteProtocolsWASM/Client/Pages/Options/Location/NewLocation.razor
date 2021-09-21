@@ -1,0 +1,90 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.LocationVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject ILocationService LocationService
+@inject DialogService DialogService
+@inject NotificationService NotificationService
+
+@page "/Pages/Options/Location/NewLocation"
+<div class="content">
+    <RadzenTemplateForm Data="@location" TItem="NewLocationVm" Submit="@CreateLocation">
+        <DataAnnotationsValidator />
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Kod:" Component="Code" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenTextBox Name="Code" @bind-Value="@location.Code" />
+                <ValidationMessage For="@(() =>location.Code)" />
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Nazwa:" Component="Name" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenTextBox Name="Name" @bind-Value="@location.Name" />
+                <ValidationMessage For="@(() =>location.Name)" />
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Adres:" Component="Address" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenTextBox Name="Address" @bind-Value="@location.Address" />
+                <ValidationMessage For="@(() =>location.Address)" />
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Email:" Component="Email" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenTextBox Name="Email" @bind-Value="@location.Email" />
+                <ValidationMessage For="@(() =>location.Email)" />
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="save" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+            </div>
+        </div>
+
+    </RadzenTemplateForm>
+</div>
+
+@code {
+    NewLocationVm location = new NewLocationVm();
+
+    protected async Task CreateLocation()
+    {
+        var id = await LocationService.CreateLocation(location);
+
+        if (id == 0)
+        {
+            NotificationService.Notify(new Radzen.NotificationMessage() { Style = "position: absolute; left: -1000px;", Severity = NotificationSeverity.Error, Summary = "Lokalizacja o podanym kodzie już istnieje !", Duration = 5000 });
+        }
+        else
+        {
+            DialogService.Close(true);
+        }
+
+    }
+}

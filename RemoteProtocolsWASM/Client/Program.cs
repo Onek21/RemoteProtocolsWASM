@@ -48,6 +48,11 @@ namespace RemoteProtocolsWASM.Client
                 client.BaseAddress = new Uri("https://localhost:44309/");
             });
 
+            builder.Services.AddHttpClient<ILocationService, LocationService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44309/");
+            });
+
             await builder.Build().RunAsync();
         }
     }
