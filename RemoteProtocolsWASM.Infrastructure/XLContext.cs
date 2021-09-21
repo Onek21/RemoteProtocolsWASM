@@ -13,6 +13,7 @@ namespace RemoteProtocolsWASM.Infrastructure
     public class XLContext : DbContext
     {
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public XLContext(DbContextOptions<XLContext> options
            ) : base(options)
         {
@@ -22,6 +23,9 @@ namespace RemoteProtocolsWASM.Infrastructure
         {
             builder.Entity<Warehouse>(x => x
             .ToTable("Cdn.Magazyny"));
+
+            builder.Entity<Project>(x => x
+            .ToTable("Cdn.IteProjekty"));
         }
     }
 }

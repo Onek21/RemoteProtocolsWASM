@@ -21,7 +21,10 @@ namespace RemoteProtocolsWASM.Infrastructure
             services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<ILocationRepository, LocationRepository>();
+
             services.AddTransient<IWarehouseRepository, WarehouseRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+
             return services;
         }
     }
