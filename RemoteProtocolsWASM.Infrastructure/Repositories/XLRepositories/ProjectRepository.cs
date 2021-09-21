@@ -25,17 +25,17 @@ namespace RemoteProtocolsWASM.Infrastructure.Repositories.XLRepositories
 
         public void CreateProject(Project project)
         {
-            _xlContext.Database.ExecuteSqlRaw($"Insert Into CDN.IteProjekty (Kod_Projektu, Nazwa_projektu, Aktywny) VALUES ({project.ProjectCode}, {project.ProjectName},{project.IsActive})");
+            _xlContext.Database.ExecuteSqlRaw($"Insert Into CDN.IteProjekty (Kod_Projektu, Nazwa_projektu, Aktywny) VALUES ('{project.ProjectCode}', '{project.ProjectName}','{project.IsActive}')");
         }
 
         public void UpdateProject(Project project)
         {
-            _xlContext.Database.ExecuteSqlRaw($"Update Cdn.IteProjekty Set Kod_Projektu = {project.ProjectCode}, Nazwa_projektu = {project.ProjectName} Where Projekty_Id = {project.ProjectId}");
+            _xlContext.Database.ExecuteSqlRaw($"Update Cdn.IteProjekty Set Kod_Projektu = '{project.ProjectCode}', Nazwa_projektu = '{project.ProjectName}' Where Projekty_Id = {project.ProjectId}");
         }
 
         public void DeactivateProject(Project project)
         {
-            _xlContext.Database.ExecuteSqlRaw($"Update Cdn.IteProjekty Set Aktywny = {project.IsActive} Where Projekty_Id = {project.ProjectId}");
+            _xlContext.Database.ExecuteSqlRaw($"Update Cdn.IteProjekty Set Aktywny = '{project.IsActive}' Where Projekty_Id = {project.ProjectId}");
         }
     }
 }

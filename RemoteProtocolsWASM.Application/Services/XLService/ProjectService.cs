@@ -52,7 +52,7 @@ namespace RemoteProtocolsWASM.Application.Services.XLService
         {
             projectVm.IsActive = "2";
             var project = _mapper.Map<Project>(projectVm);
-            _projectRepo.UpdateProject(project);
+            _projectRepo.DeactivateProject(project);
         }
     }
 }

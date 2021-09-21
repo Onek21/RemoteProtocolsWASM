@@ -24,6 +24,7 @@ namespace RemoteProtocolsWASM.Application
             services.AddTransient<ILocationService, LocationService>();
 
             services.AddTransient<IWarehouseService, WarehouseService>();
+            services.AddTransient<IProjectService, ProjectService>();
 
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
