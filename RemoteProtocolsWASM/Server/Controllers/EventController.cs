@@ -19,7 +19,7 @@ namespace RemoteProtocolsWASM.Server.Controllers
             _eventService = eventService;
         }
         [HttpPost("CreateEvent")]
-        public IActionResult CreateCar(NewEventVm model)
+        public IActionResult CreateEvent(NewEventVm model)
         {
             var id = _eventService.CreateEvent(model);
 
@@ -32,7 +32,7 @@ namespace RemoteProtocolsWASM.Server.Controllers
         }
 
         [HttpGet("GetActiveEvents")]
-        public ActionResult<IEnumerable<EventListVm>> GetActiveCars()
+        public ActionResult<IEnumerable<EventListVm>> GetActiveEvents()
         {
             var events = _eventService.GetActiveEvents();
            
@@ -42,7 +42,7 @@ namespace RemoteProtocolsWASM.Server.Controllers
         }
 
         [HttpPut("UpdateEvent/{id}")]
-        public IActionResult EditCar(NewEventVm model)
+        public IActionResult UpdateEvent(NewEventVm model)
         {
             if (ModelState.IsValid)
             {
@@ -53,14 +53,14 @@ namespace RemoteProtocolsWASM.Server.Controllers
         }
 
         [HttpGet("EventDetail/{id}")]
-        public ActionResult<EventDetailVm> CarDetails(int id)
+        public ActionResult<EventDetailVm> EventDetail(int id)
         {
             var eventModel = _eventService.EventDetails(id);
             return Ok(eventModel);
         }
 
         [HttpPut("DeactivateEvent/{id}")]
-        public IActionResult DeactivateCar(NewEventVm model)
+        public IActionResult DeactivateEvent(NewEventVm model)
         {
             if (ModelState.IsValid)
             {
