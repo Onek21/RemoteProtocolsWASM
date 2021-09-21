@@ -20,6 +20,7 @@ namespace RemoteProtocolsWASM.Application
         {
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IWarehouseService, WarehouseService>();
             services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
 
