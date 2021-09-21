@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RemoteProtocolsWASM.Application.Interfaces.XLInterface
+namespace RemoteProtocolsWASM.Application.Interfaces
 {
     public interface ILocationService
     {

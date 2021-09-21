@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using RemoteProtocolsWASM.Application.Interfaces.XLInterface;
+using RemoteProtocolsWASM.Application.Interfaces;
 using RemoteProtocolsWASM.Domain.Interface;
 using RemoteProtocolsWASM.Domain.Model;
 using RemoteProtocolsWASM.Shared.ViewModels.LocationVm;
