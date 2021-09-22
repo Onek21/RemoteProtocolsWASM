@@ -1,0 +1,36 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.XLViewModels.ProjectVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces.XLInterfaces
+@inject IProjectService ProjectService
+@inject DialogService DialogService
+
+@page "/Pages/Options/Project/DeactivateProject/{ProjectId}"
+
+<h4>Czy potwierdzasz usunięcie?</h4>
+
+<div class="content">
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="check" Click="@Delete" />
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+        </div>
+    </div>
+
+</div>
+@code {
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    NewProjectVm newProject = new NewProjectVm();
+
+    protected override async Task OnInitializedAsync()
+    {
+        newProject = await ProjectService.GetProjectDetails(ProjectId);
+    }
+
+    protected async Task Delete()
+    {
+        await ProjectService.DeactivateProject(newProject);
+        DialogService.Close(true);
+    }
+}

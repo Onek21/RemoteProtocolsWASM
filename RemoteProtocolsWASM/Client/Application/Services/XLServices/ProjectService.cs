@@ -37,7 +37,7 @@ namespace RemoteProtocolsWASM.Client.Application.Services.XLServices
             await _httpClient.PutAsJsonAsync<NewProjectVm>($"api/Project/UpdateProject/{newProject.ProjectId}", newProject);
         }
 
-        public async Task DeactivateCar(NewProjectVm newProject)
+        public async Task DeactivateProject(NewProjectVm newProject)
         {
             await _httpClient.PutAsJsonAsync<NewProjectVm>($"api/Project/DeactivateProject/{newProject.ProjectId}", newProject);
         }

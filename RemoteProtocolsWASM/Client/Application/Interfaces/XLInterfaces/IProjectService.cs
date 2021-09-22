@@ -9,7 +9,7 @@ namespace RemoteProtocolsWASM.Client.Application.Interfaces.XLInterfaces
     public interface IProjectService
     {
         Task CreateProject(NewProjectVm newProject);
-        Task DeactivateCar(NewProjectVm newProject);
+        Task DeactivateProject(NewProjectVm newProject);
         Task EditProject(NewProjectVm newProject);
         Task<IEnumerable<ProjectListVm>> GetActiveProjects();
         Task<NewProjectVm> GetProjectDetails(int id);

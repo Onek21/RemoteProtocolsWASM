@@ -1,0 +1,70 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.XLViewModels.ProjectVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces.XLInterfaces
+@inject IProjectService ProjectService
+@inject DialogService DialogService
+
+@page "/Pages/Options/Project/ProjectList"
+
+<RadzenButton Text="Dodaj Projekt" Click=@CreateProject />
+<RadzenGrid @ref="ProjectGrid" AllowPaging="true" AllowSorting="true" AllowFiltering="true" Data="@ProjectsList" TItem="ProjectListVm" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" LogicalFilterOperator="LogicalFilterOperator.Or">
+    <Columns>
+        <RadzenGridColumn TItem="ProjectListVm" Context="data" Property="ProjectCode" Title="Kod" Type="string" />
+        <RadzenGridColumn TItem="ProjectListVm" Context="data" Property="ProjectName" Title="Nazwa" Type="string" />
+        <RadzenGridColumn TItem="ProjectListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="() => EditProject(data.ProjectId)" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="ProjectListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+            <Template Context="data">
+                <RadzenButton Icon="delete" Size="ButtonSize.Small" Click="() => DeactivateProject(data.ProjectId)" />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+
+@code {
+    public IEnumerable<ProjectListVm> ProjectsList { get; set; }
+    RadzenGrid<ProjectListVm> ProjectGrid;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProjectsList = await ProjectService.GetActiveProjects();
+        DialogService.OnClose += Close;
+    }
+
+    async void Close(dynamic result)
+    {
+        ProjectsList = await ProjectService.GetActiveProjects();
+        await ProjectGrid.Reload();
+        StateHasChanged();
+    }
+
+
+    public async Task CreateProject()
+    {
+        await DialogService.OpenAsync<NewProject>($"Dodaj projekt",
+             null,
+             new DialogOptions() { Width = "700px", Height = "530px" });
+    }
+
+    public async Task EditProject(int id)
+    {
+        {
+            await DialogService.OpenAsync<EditProject>($"Edytuj projekt",
+                   new Dictionary<string, object>() { { "ProjectId", id } },
+                   new DialogOptions() { Width = "700px", Height = "530px" });
+        }
+    }
+
+    public async Task DeactivateProject(int id)
+    {
+        {
+            await DialogService.OpenAsync<DeactivateProject>($"Usuń projekt",
+                   new Dictionary<string, object>() { { "ProjectId", id } },
+                   new DialogOptions() { Width = "700px", Height = "200px" });
+        }
+    }
+
+}
