@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -40,11 +41,17 @@ namespace RemoteProtocolsWASM.Server
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<Context>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<User, Context>();
+               .AddApiAuthorization<User, Context>(options => {
+                   options.IdentityResources["openid"].UserClaims.Add("name");
+                   options.ApiResources.Single().UserClaims.Add("name");
+                   options.IdentityResources["openid"].UserClaims.Add("role");
+                   options.ApiResources.Single().UserClaims.Add("role");
+               });
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
