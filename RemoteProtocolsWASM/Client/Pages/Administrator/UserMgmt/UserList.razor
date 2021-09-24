@@ -1,0 +1,65 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.UserVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject IUserService UserService
+@inject DialogService DialogService
+
+@page "/Pages/Administrator/UserMgmt/UserList"
+<RadzenButton Text="Dodaj użytkownika" Click=@CreateUser />
+<RadzenGrid @ref="UsersGrid" AllowPaging="true" AllowSorting="true" AllowFiltering="true" Data="@UsersList" TItem="UserListVm"
+            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            LogicalFilterOperator="LogicalFilterOperator.Or"
+            FilterMode="FilterMode.Simple">
+    <Columns>
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Id" Title="Kod" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="UserName" Title="Nazwa" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Email" Title="Email" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Name" Title="Imię i nazwisko" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Roles" Title="Stanowisko" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="IsLockout" Title="Zablokowany" Type="boolean">
+            <Template>
+                <RadzenCheckBox @bind-Value="@data.IsLockout" Disabled/>
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="UserListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+                <Template Context="data">
+                    <RadzenButton Icon="edit" Size="ButtonSize.Small" Click="() => EditUser(data.Id)" />
+                </Template>
+            </RadzenGridColumn>
+            @*<RadzenGridColumn TItem="EventListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+                <Template Context="data">
+                    <RadzenButton Icon="delete" Size="ButtonSize.Small" Click="() => DeactivateEvent(data.EventId)" />
+                </Template>
+            </RadzenGridColumn>*@
+    </Columns>
+</RadzenGrid>
+@code {
+    public IEnumerable<UserListVm> UsersList { get; set; }
+    RadzenGrid<UserListVm> UsersGrid;
+
+    protected override async Task OnInitializedAsync()
+    {
+        UsersList = await UserService.GetUsers();
+        DialogService.OnClose += Close;
+    }
+
+    async void Close(dynamic result)
+    {
+        UsersList = await UserService.GetUsers();
+        await UsersGrid.Reload();
+        StateHasChanged();
+    }
+
+    public async Task CreateUser()
+    {
+        await DialogService.OpenAsync<NewUser>($"Dodaj użytkownika",
+             null,
+             new DialogOptions() { Width = "700px", Height = "530px" });
+    }
+
+    public async Task EditUser(string id)
+    {
+        await DialogService.OpenAsync<EditUser>($"Edytuj użytkownika",
+             new Dictionary<string, object>() { { "Id", id } },
+             new DialogOptions() { Width = "700px", Height = "530px" });
+    }
+}

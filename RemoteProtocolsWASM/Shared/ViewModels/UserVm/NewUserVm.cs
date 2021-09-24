@@ -18,7 +18,7 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         [Required(ErrorMessage = "Nazwa użytkownika nie może być pusta")]
         public string UserName { get; set; }
         [Required(ErrorMessage ="Email nie może być pusty")]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress, ErrorMessage =("Email musi być w odpowiednim formacie"))]
         [EmailAddress]
         public string Email { get; set; }
         [DisplayName("Hasło")]

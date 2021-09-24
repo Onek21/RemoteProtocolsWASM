@@ -1,0 +1,181 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.UserVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject IUserService UserService
+@inject DialogService DialogService
+@inject NotificationService NotificationService
+
+@page "/Pages/Administrator/UserMgmt/EditUser/{Id}"
+<RadzenTabs>
+    <Tabs>
+        <RadzenTabsItem Text="Edytuj">
+            <div class="content">
+                <RadzenTemplateForm Data="@editUser" TItem="EditUserVm" Submit="@UpdateUser">
+                    <DataAnnotationsValidator />
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Login:" Component="UserName" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenTextBox Name="UserName" @bind-Value="@editUser.UserName" ReadOnly />
+                            <ValidationMessage For="@(() =>editUser.UserName)" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Email:" Component="Email" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenTextBox Name="Email" @bind-Value="@editUser.Email" />
+                            <ValidationMessage For="@(() =>editUser.Email)" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Imię i Nazwisko:" Component="Name" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenTextBox Name="Name" @bind-Value="@editUser.Name" />
+                            <ValidationMessage For="@(() =>editUser.Name)" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Zablokowany" Component="IsLockout" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenCheckBox Name="Name" @bind-Value="@editUser.IsLockout" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                            <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="save" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+                        </div>
+                    </div>
+
+                </RadzenTemplateForm>
+            </div>
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Resetuj hasło">
+            <div class="content">
+                <RadzenTemplateForm Data="@resetPassword" TItem="ResetPasswordVm" Submit="@ResestPassword">
+                    <DataAnnotationsValidator />
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Login:" Component="UserName" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenTextBox Name="UserName" @bind-Value="@resetPassword.UserName" ReadOnly/>
+                            <ValidationMessage For="@(() =>resetPassword.UserName)" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Hasło:" Component="Password" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenPassword Name="Password" @bind-Value="@resetPassword.Password" />
+                            <ValidationMessage For="@(() =>resetPassword.Password)" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Potwierdź Hasło:" Component="ConfirmPassword" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenPassword Name="ConfirmPassword" @bind-Value="@resetPassword.ConfirmPassword" />
+                            <ValidationMessage For="@(() =>resetPassword.ConfirmPassword)" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                            <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="save" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+                        </div>
+                    </div>
+
+                </RadzenTemplateForm>
+            </div>
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Nadaj role">
+            @*<RadzenLabel Text="Nadaj role:" />
+            <RadzenTemplateForm Data="@editUser" TItem="EditUserVm" Submit="@UpdateRoles">
+                <RadzenCheckBoxList @bind-Value="@editUser.UserRoles" TValue="string">
+                    <Items>
+                        @foreach (var role in editUser.Roles)
+                        {
+                            <RadzenCheckBoxListItem Text="@role.Name" Value="@role.Name" />
+                        }
+                    </Items>
+                </RadzenCheckBoxList>
+            </RadzenTemplateForm>*@
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    EditUserVm editUser = new EditUserVm();
+    ResetPasswordVm resetPassword = new ResetPasswordVm();
+
+    protected override async Task OnInitializedAsync()
+    {
+        editUser = await UserService.GetUserById(id);
+        resetPassword = await UserService.GetUserByIdToResetPassword(id);
+    }
+
+    private async Task UpdateUser()
+    {
+        await UserService.EditUser(editUser);
+        NotificationService.Notify(new Radzen.NotificationMessage() { Style = "position: absolute; left: -1000px;", Severity = NotificationSeverity.Success, Summary = "Zaktualizowano użytkownika !", Duration = 5000 });
+        editUser = await UserService.GetUserById(id);
+        StateHasChanged();
+    }
+
+    private async Task ResestPassword()
+    {
+        await UserService.ResetPassword(resetPassword);
+        NotificationService.Notify(new Radzen.NotificationMessage() { Style = "position: absolute; left: -1000px;", Severity = NotificationSeverity.Success, Summary = "Hasło zrestartowano !", Duration = 5000 });
+        resetPassword = await UserService.GetUserByIdToResetPassword(id);
+        StateHasChanged();
+    }
+
+    private async Task UpdateRoles()
+    {
+        await UserService.ChangeUserRole(editUser);
+        NotificationService.Notify(new Radzen.NotificationMessage() { Style = "position: absolute; left: -1000px;", Severity = NotificationSeverity.Success, Summary = "Zaktualizowano użytkownika !", Duration = 5000 });
+        editUser = await UserService.GetUserById(id);
+        StateHasChanged();
+    }
+}

@@ -21,6 +21,7 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         [DisplayName("Imię i nazwisko")]
         public string Name { get; set; }
         public string Roles { get; set; }
+        public bool IsLockout { get; set; }
 
         public void Mapping(Profile profile)
         {

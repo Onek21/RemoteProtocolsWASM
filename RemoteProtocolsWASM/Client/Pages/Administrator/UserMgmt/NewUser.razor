@@ -1,0 +1,93 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.UserVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject IUserService UserService
+@inject DialogService DialogService
+@page "/Pages/Administrator/UserMgmt/NewUser"
+
+<div class="content">
+    <RadzenTemplateForm Data="@newUser" TItem="NewUserVm" Submit="@CreateUser">
+        <DataAnnotationsValidator />
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Login:" Component="UserName" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenTextBox Name="UserName" @bind-Value="@newUser.UserName" />
+                <ValidationMessage For="@(() =>newUser.UserName)" />
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Email:" Component="Email" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenTextBox Name="Email" @bind-Value="@newUser.Email" />
+                <ValidationMessage For="@(() =>newUser.Email)" />
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Imię i Nazwisko:" Component="Name" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenTextBox Name="Name" @bind-Value="@newUser.Name" />
+                <ValidationMessage For="@(() =>newUser.Name)" />
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Hasło:" Component="Password" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenPassword Name="Password" @bind-Value="@newUser.Password" />
+                <ValidationMessage For="@(() =>newUser.Password)" />
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 align-items-center d-flex">
+                <RadzenLabel Text="Potwierdź Hasło:" Component="ConfirmPassword" />
+            </div>
+
+            <div class="col-md-8">
+                <RadzenPassword Name="ConfirmPassword" @bind-Value="@newUser.ConfirmPassword" />
+                <ValidationMessage For="@(() =>newUser.ConfirmPassword)" />
+            </div>
+
+        </div>
+
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="save" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+            </div>
+        </div>
+
+    </RadzenTemplateForm>
+</div>
+
+@code {
+    NewUserVm newUser = new NewUserVm();
+
+    protected async Task CreateUser()
+    {
+        await UserService.CreateUser(newUser);
+        DialogService.Close(true);
+    }
+}
