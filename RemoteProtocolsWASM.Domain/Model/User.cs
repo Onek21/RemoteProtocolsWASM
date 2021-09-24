@@ -14,5 +14,6 @@ namespace RemoteProtocolsWASM.Domain.Model
         public virtual ICollection<Protocol> ProtocolsAccounting { get; set; }
         public virtual ICollection<AspNetUsersInfo> Users { get; set; }
         public virtual ICollection<AspNetUsersInfo> UserManagers { get; set; }
+
     }
 }

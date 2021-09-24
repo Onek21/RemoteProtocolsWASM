@@ -22,6 +22,7 @@ namespace RemoteProtocolsWASM.Application
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddTransient<IWarehouseService, WarehouseService>();
             services.AddTransient<IProjectService, ProjectService>();
