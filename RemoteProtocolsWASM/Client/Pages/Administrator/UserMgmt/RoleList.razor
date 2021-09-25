@@ -1,0 +1,52 @@
+﻿@using RemoteProtocolsWASM.Shared.ViewModels.UserVm
+@using RemoteProtocolsWASM.Client.Application.Interfaces
+@inject IUserService UserService
+@inject DialogService DialogService
+
+@page "/Pages/Administrator/UserMgmt/RoleList"
+<RadzenButton Text="Dodaj role" Click=@CreateRole />
+<RadzenGrid @ref="RolesGrid" AllowPaging="true" AllowSorting="true" AllowFiltering="true" Data="@RolesList" TItem="RoleListVm"
+            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            LogicalFilterOperator="LogicalFilterOperator.Or"
+            FilterMode="FilterMode.Simple">
+    <Columns>
+        <RadzenGridColumn TItem="RoleListVm" Context="data" Property="Id" Title="Kod" Type="string" />
+        <RadzenGridColumn TItem="RoleListVm" Context="data" Property="Name" Title="Nazwa" Type="string" />
+        <RadzenGridColumn TItem="RoleListVm" Context="data" Filterable="false" Sortable="false" Width="50px">
+                <Template Context="data">
+                    <RadzenButton Icon="delete" Size="ButtonSize.Small" Click="() => DeleteRole(data.Id)" />
+                </Template>
+            </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+@code {
+
+    public IEnumerable<RoleListVm> RolesList { get; set; }
+    RadzenGrid<RoleListVm> RolesGrid;
+    protected override async Task OnInitializedAsync()
+    {
+        RolesList = await UserService.GetRoles();
+        DialogService.OnClose += Close;
+    }
+
+    async void Close(dynamic result)
+    {
+        RolesList = await UserService.GetRoles();
+        await RolesGrid.Reload();
+        StateHasChanged();
+    }
+
+    public async Task CreateRole()
+    {
+        await DialogService.OpenAsync<NewRole>($"Dodaj role",
+             null,
+             new DialogOptions() { Width = "700px", Height = "400px" });
+    }
+
+    public async Task DeleteRole(string Id)
+    {
+        await DialogService.OpenAsync<DeleteRole>($"Usuń role",
+             new Dictionary<string, object>() { { "Id", Id } },
+             new DialogOptions() { Width = "700px", Height = "250px" });
+    }
+}
