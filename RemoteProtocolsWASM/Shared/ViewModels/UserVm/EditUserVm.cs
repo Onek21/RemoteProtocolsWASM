@@ -23,7 +23,7 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         public string Email { get; set; }
         [DisplayName("Imię i nazwisko")]
         public string Name { get; set; }
-        public List<string> UserRoles { get; set; }
+        public IEnumerable<string> UserRoles { get; set; }
         public List<RoleListVm> Roles { get; set; }
         public bool IsLockout { get; set; }
         public DateTimeOffset LockoutEnd { get; set; }

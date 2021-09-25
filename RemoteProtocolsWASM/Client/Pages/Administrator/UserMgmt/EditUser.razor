@@ -51,11 +51,11 @@
                     <div class="row">
 
                         <div class="col-md-4 align-items-center d-flex">
-                            <RadzenLabel Text="Zablokowany" Component="IsLockout" />
+                            <RadzenLabel Text="Zablokowany:" Component="IsLockout" />
                         </div>
 
                         <div class="col-md-8">
-                            <RadzenCheckBox Name="Name" @bind-Value="@editUser.IsLockout" />
+                            <RadzenCheckBox Name="IsLockout" @bind-Value="@editUser.IsLockout" />
                         </div>
 
                     </div>
@@ -127,17 +127,23 @@
             </div>
         </RadzenTabsItem>
         <RadzenTabsItem Text="Nadaj role">
-            @*<RadzenLabel Text="Nadaj role:" />
+            <RadzenLabel Text="Nadaj role:" />
             <RadzenTemplateForm Data="@editUser" TItem="EditUserVm" Submit="@UpdateRoles">
-                <RadzenCheckBoxList @bind-Value="@editUser.UserRoles" TValue="string">
+                <RadzenCheckBoxList @bind-Value="@editUser.UserRoles" Orientation="Orientation.Vertical" >
                     <Items>
-                        @foreach (var role in editUser.Roles)
+                        @foreach (var roles in editUser.Roles)
                         {
-                            <RadzenCheckBoxListItem Text="@role.Name" Value="@role.Name" />
+                            <RadzenCheckBoxListItem Text="@roles.Name" Value="@roles.Name" TValue="string" />
                         }
                     </Items>
                 </RadzenCheckBoxList>
-            </RadzenTemplateForm>*@
+                <div class="row justify-content-center">
+                    <div class="col-md-12 d-flex align-items-end justify-content-center" style="margin-top: 16px;">
+                        <RadzenButton ButtonType="ButtonType.Submit" Text="Zapisz" Icon="save" />
+                        <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Zamknij" Icon="cancel" Click="@((args) => DialogService.Close(false))" style="display: inline-block; margin-left: 10px;" />
+                    </div>
+                </div>
+            </RadzenTemplateForm>
         </RadzenTabsItem>
     </Tabs>
 </RadzenTabs>

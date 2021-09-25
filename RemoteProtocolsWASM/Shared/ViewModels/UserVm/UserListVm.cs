@@ -22,6 +22,7 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         public string Name { get; set; }
         public string Roles { get; set; }
         public bool IsLockout { get; set; }
+        public DateTimeOffset LockoutEnd { get; set; }
 
         public void Mapping(Profile profile)
         {

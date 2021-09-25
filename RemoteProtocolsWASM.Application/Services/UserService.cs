@@ -32,6 +32,10 @@ namespace RemoteProtocolsWASM.Application.Services
             {
                 user.Name = GetClaimsByUser(user.Id).FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
                 user.Roles = GetRolesByUser(user.Id).DefaultIfEmpty("").First();
+                if (user.LockoutEnd == DateTimeOffset.MaxValue)
+                    user.IsLockout = true;
+                else
+                    user.IsLockout = false;
             }
             return users;
         }
@@ -119,6 +123,10 @@ namespace RemoteProtocolsWASM.Application.Services
         {
             var user = _userManager.FindByIdAsync(id).Result;
             var userVm = _mapper.Map<EditUserVm>(user);
+            if (userVm.LockoutEnd == DateTimeOffset.MaxValue)
+                userVm.IsLockout = true;
+            else
+                userVm.IsLockout = false;
             userVm.Name = GetClaimsByUser(user.Id).FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
             userVm.UserRoles = GetRolesByUser(user.Id).ToList();
             userVm.Roles = GetRoles();
@@ -144,11 +152,12 @@ namespace RemoteProtocolsWASM.Application.Services
             }
         }
 
-        public async Task<IdentityResult> ChangeUserRoles(string id, List<string> roles)
+        public async Task<IdentityResult> ChangeUserRoles(string id, IEnumerable<string> roles)
         {
             var user = await _userManager.FindByIdAsync(id);
             await RemoveRolesFromUser(user);
-            var result = await AddRolesToUser(user, roles);
+            var roleList = roles.ToList();
+            var result = await AddRolesToUser(user, roleList);
             return result;
         }
 

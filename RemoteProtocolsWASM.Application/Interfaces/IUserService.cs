@@ -12,7 +12,7 @@ namespace RemoteProtocolsWASM.Application.Interfaces
     {
         Task<IdentityResult> AddRole(NewRoleVm newRoleVm);
         Task<IdentityResult> AddUser(NewUserVm newUserVm);
-        Task<IdentityResult> ChangeUserRoles(string id, List<string> roles);
+        Task<IdentityResult> ChangeUserRoles(string id, IEnumerable<string> roles);
         Task<IdentityResult> DeleteRole(string id);
         Task<IdentityResult> EditUser(EditUserVm userToEdit);
         List<RoleListVm> GetRoles();
