@@ -20,6 +20,9 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         [DisplayName("Hasło")]
         [Required(ErrorMessage = "Hasło nie może być puste")]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\da-zA-Z]).*$",
+         ErrorMessage = "Hasło musi posiadać małą literę, dużą literę, liczbę oraz znak specjalny")]
+        [StringLength(100, ErrorMessage = ("Hasło musi posiadać minimum 6 znakow"), MinimumLength = 6)]
         public string Password { get; set; }
         [DisplayName("Potwierdź hasło")]
         [Required(ErrorMessage = "Potwierdź hasło nie może być puste")]

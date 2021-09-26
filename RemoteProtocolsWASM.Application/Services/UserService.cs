@@ -32,6 +32,10 @@ namespace RemoteProtocolsWASM.Application.Services
             {
                 user.Name = GetClaimsByUser(user.Id).FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
                 user.Roles = GetRolesByUser(user.Id).DefaultIfEmpty("").First();
+                if(user.ManagerId != null)
+                { 
+                    user.Manager = GetClaimsByUser(user.ManagerId).FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+                }
                 if (user.LockoutEnd == DateTimeOffset.MaxValue)
                     user.IsLockout = true;
                 else
@@ -99,6 +103,26 @@ namespace RemoteProtocolsWASM.Application.Services
             if (userToEdit.IsLockout == true)
             {
                 currentUser.LockoutEnd = DateTimeOffset.MaxValue;
+            }
+            if(currentUser.Warehouse != userToEdit.Warehouse)
+            {
+                currentUser.Warehouse = userToEdit.Warehouse;
+            }
+            if (currentUser.WarehouseDino != userToEdit.WarehouseDino)
+            {
+                currentUser.WarehouseDino = userToEdit.WarehouseDino;
+            }
+            if (currentUser.CarId != userToEdit.CarId)
+            {
+                currentUser.CarId = userToEdit.CarId;
+            }
+            if (currentUser.GroupId != userToEdit.GroupId)
+            {
+                currentUser.GroupId = userToEdit.GroupId;
+            }
+            if (currentUser.ManagerId != userToEdit.ManagerId)
+            {
+                currentUser.ManagerId = userToEdit.ManagerId;
             }
             else
             {

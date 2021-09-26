@@ -23,12 +23,26 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         public string Roles { get; set; }
         public bool IsLockout { get; set; }
         public DateTimeOffset LockoutEnd { get; set; }
+        [DisplayName("Magazyn")]
+        public string Warehouse { get; set; }
+        [DisplayName("MagazynDino")]
+        public string WarehouseDino { get; set; }
+        [DisplayName("Samochód")]
+        public string Car { get; set; }
+        [DisplayName("Grupa")]
+        public string Group { get; set; }
+        public string ManagerId { get; set; }
+        [DisplayName("Przełożony")]
+        public string Manager { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<User, UserListVm>()
                 .ForMember(src => src.Name, opt => opt.Ignore())
-                .ForMember(src => src.Roles, opt => opt.Ignore());
+                .ForMember(src => src.Roles, opt => opt.Ignore())
+                .ForMember(src => src.Car, opt => opt.MapFrom(dto => dto.Car.RegistrationNumber))
+                .ForMember(src => src.Group, opt => opt.MapFrom(dto => dto.Group.Code))
+                .ForMember(src => src.Manager, opt => opt.Ignore());
         }
     }
 }

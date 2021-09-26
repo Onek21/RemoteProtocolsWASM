@@ -15,7 +15,6 @@ namespace RemoteProtocolsWASM.Infrastructure
 {
     public class Context : ApiAuthorizationDbContext<User>
     {
-        public DbSet<AspNetUsersInfo> AspNetUsersInfo { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -36,21 +35,21 @@ namespace RemoteProtocolsWASM.Infrastructure
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<AspNetUsersInfo>()
-                .HasOne<Car>(it => it.Car).WithMany(i => i.AspNetUsersInfos)
-                .HasForeignKey(k => k.CarId);
+            builder.Entity<User>()
+                .HasOne<Car>(it => it.Car).WithMany(i => i.Users)
+                .HasForeignKey(k => k.CarId)
+                .OnDelete(DeleteBehavior.NoAction); ;
 
-            builder.Entity<AspNetUsersInfo>()
-                .HasOne<Group>(it => it.Group).WithMany(i => i.AspNetUsersInfos)
-                .HasForeignKey(k => k.GroupId);
+            builder.Entity<User>()
+                .HasOne<Group>(it => it.Group).WithMany(i => i.Users)
+                .HasForeignKey(k => k.GroupId)
+                .OnDelete(DeleteBehavior.NoAction); ;
 
-            builder.Entity<AspNetUsersInfo>()
-                .HasOne<User>(it => it.User).WithMany(i => i.Users)
-                .HasForeignKey(k => k.UserId);
+            builder.Entity<User>()
+                .HasOne(it => it.Manager).WithMany(i => i.ManagersCollection)
+                .HasForeignKey(k => k.ManagerId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<AspNetUsersInfo>()
-                .HasOne<User>(it => it.Manager).WithMany(i => i.UserManagers)
-                .HasForeignKey(k => k.ManagerId);
 
             builder.Entity<MontageProducts>()
                 .HasOne<MontageStage>(it => it.MontageStage).WithMany(i => i.MontageProducts)

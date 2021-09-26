@@ -24,7 +24,7 @@ namespace RemoteProtocolsWASM.Application.Services.XLService
 
         public List<WarehouseListVm> GetWarehouseItecomList()
         {
-            var warehouses = _warehouseRepo.GetWarehouses().Where(x=> (x.Name.StartsWith("Tech") && !x.Name.EndsWith("Dino")) || x.Name == "Serwis").ProjectTo<WarehouseListVm>(_mapper.ConfigurationProvider).ToList();
+            var warehouses = _warehouseRepo.GetWarehouses().Where(x=> (x.Name.StartsWith("Tech") && !x.Name.EndsWith("Dino")) || x.Name == "Serwis" || x.Name == "MagIT").ProjectTo<WarehouseListVm>(_mapper.ConfigurationProvider).ToList();
             return warehouses;
         }
 
@@ -36,7 +36,7 @@ namespace RemoteProtocolsWASM.Application.Services.XLService
 
         public List<WarehouseListVm> GetAllWarehouseList()
         {
-            var warehouses = _warehouseRepo.GetWarehouses().Where(x => x.Name.StartsWith("Tech") || x.Name == "Serwis").ProjectTo<WarehouseListVm>(_mapper.ConfigurationProvider).ToList();
+            var warehouses = _warehouseRepo.GetWarehouses().Where(x => x.Name.StartsWith("Tech") || x.Name == "Serwis" || x.Name == "MagIT").ProjectTo<WarehouseListVm>(_mapper.ConfigurationProvider).ToList();
             return warehouses;
         }
 

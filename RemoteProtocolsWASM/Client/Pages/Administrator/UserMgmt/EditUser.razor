@@ -1,6 +1,13 @@
 ﻿@using RemoteProtocolsWASM.Shared.ViewModels.UserVm
+@using RemoteProtocolsWASM.Shared.ViewModels.GroupVm
+@using RemoteProtocolsWASM.Shared.ViewModels.CarVm
+@using RemoteProtocolsWASM.Shared.ViewModels.XLViewModels
 @using RemoteProtocolsWASM.Client.Application.Interfaces
+@using RemoteProtocolsWASM.Client.Application.Interfaces.XLInterfaces
 @inject IUserService UserService
+@inject ICarService CarService
+@inject IGroupService GroupService
+@inject IWarehouseService WarehouseService
 @inject DialogService DialogService
 @inject NotificationService NotificationService
 
@@ -51,6 +58,81 @@
                     <div class="row">
 
                         <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Magazyn:" Component="Warehouse" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenDropDown AllowClear="true" TValue="string" Name="Warehouse"
+                                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                            Data=@itecomWarehouses TextProperty="Name" ValueProperty="Name" @bind-Value="@editUser.Warehouse" />
+                            <ValidationMessage For="@(() =>editUser.Warehouse)" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="MagazynDino:" Component="WarehouseDino" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenDropDown AllowClear="true" TValue="string" Name="WarehouseDino"
+                                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                            Data=@dinoWarehouses TextProperty="Name" ValueProperty="Name" @bind-Value="@editUser.WarehouseDino" />
+                            <ValidationMessage For="@(() =>editUser.WarehouseDino)" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Samochód:" Component="CarId" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenDropDown AllowClear="true" TValue="int" Name="CarId"
+                                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                            Data=@cars TextProperty="RegistrationNumber" ValueProperty="CarId" @bind-Value="@editUser.CarId" />
+                            <ValidationMessage For="@(() =>editUser.CarId)" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Grupa:" Component="GroupId" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenDropDown AllowClear="true" TValue="int" Name="GroupId"
+                                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                            Data=@groups TextProperty="Code" ValueProperty="GroupId" @bind-Value="@editUser.GroupId" />
+                            <ValidationMessage For="@(() =>editUser.GroupId)" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
+                            <RadzenLabel Text="Przełożony:" Component="ManagerId" />
+                        </div>
+
+                        <div class="col-md-8">
+                            <RadzenDropDown AllowClear="true" TValue="string" Name="ManagerId"
+                                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                            Data=@managers TextProperty="Name" ValueProperty="Id" @bind-Value="@editUser.ManagerId" />
+                            <ValidationMessage For="@(() =>editUser.ManagerId)" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 align-items-center d-flex">
                             <RadzenLabel Text="Zablokowany:" Component="IsLockout" />
                         </div>
 
@@ -82,7 +164,7 @@
                         </div>
 
                         <div class="col-md-8">
-                            <RadzenTextBox Name="UserName" @bind-Value="@resetPassword.UserName" ReadOnly/>
+                            <RadzenTextBox Name="UserName" @bind-Value="@resetPassword.UserName" ReadOnly />
                             <ValidationMessage For="@(() =>resetPassword.UserName)" />
                         </div>
 
@@ -129,7 +211,7 @@
         <RadzenTabsItem Text="Nadaj role">
             <RadzenLabel Text="Nadaj role:" />
             <RadzenTemplateForm Data="@editUser" TItem="EditUserVm" Submit="@UpdateRoles">
-                <RadzenCheckBoxList @bind-Value="@editUser.UserRoles" Orientation="Orientation.Vertical" >
+                <RadzenCheckBoxList @bind-Value="@editUser.UserRoles" Orientation="Orientation.Vertical">
                     <Items>
                         @foreach (var roles in editUser.Roles)
                         {
@@ -154,11 +236,21 @@
 
     EditUserVm editUser = new EditUserVm();
     ResetPasswordVm resetPassword = new ResetPasswordVm();
+    IEnumerable<UserListVm> managers;
+    IEnumerable<CarListVm> cars;
+    IEnumerable<GroupListVm> groups;
+    IEnumerable<WarehouseListVm> itecomWarehouses;
+    IEnumerable<WarehouseListVm> dinoWarehouses;
 
     protected override async Task OnInitializedAsync()
     {
         editUser = await UserService.GetUserById(id);
         resetPassword = await UserService.GetUserByIdToResetPassword(id);
+        managers = await UserService.GetUsers();
+        cars = await CarService.GetActiveCars();
+        groups = await GroupService.GetActiveGroups();
+        itecomWarehouses = await WarehouseService.GetItecomWarehouses();
+        dinoWarehouses = await WarehouseService.GetDinoWarehouses();
     }
 
     private async Task UpdateUser()

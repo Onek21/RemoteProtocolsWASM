@@ -27,6 +27,19 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         public List<RoleListVm> Roles { get; set; }
         public bool IsLockout { get; set; }
         public DateTimeOffset LockoutEnd { get; set; }
+        public string Warehouse { get; set; }
+        [DisplayName("MagazynDino")]
+        public string WarehouseDino { get; set; }
+        [DisplayName("Samochód")]
+        [RegularExpression(@"(.*[1-9].*)|(.*[.].*[1-9].*)",
+          ErrorMessage = "Pole samochód jest wymagane")]
+        public int CarId { get; set; }
+        [DisplayName("Grupa")]
+        [RegularExpression(@"(.*[1-9].*)|(.*[.].*[1-9].*)",
+         ErrorMessage = "Pole grupa jest wymagane")]
+        public int GroupId { get; set; }
+        [DisplayName("Przełożony")]
+        public string ManagerId { get; set; }
 
         public void Mapping(Profile profile)
         {

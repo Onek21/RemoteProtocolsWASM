@@ -15,6 +15,11 @@
         <RadzenGridColumn TItem="UserListVm" Context="data" Property="Email" Title="Email" Type="string" />
         <RadzenGridColumn TItem="UserListVm" Context="data" Property="Name" Title="Imię i nazwisko" Type="string" />
         <RadzenGridColumn TItem="UserListVm" Context="data" Property="Roles" Title="Stanowisko" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Warehouse" Title="Magazyn" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="WarehouseDino" Title="Magazyn Dino" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Car" Title="Samochód" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Group" Title="Grupa" Type="string" />
+        <RadzenGridColumn TItem="UserListVm" Context="data" Property="Manager" Title="Przełożony" Type="string" />
         <RadzenGridColumn TItem="UserListVm" Context="data" Property="IsLockout" Title="Zablokowany" Type="boolean">
             <Template>
                 <RadzenCheckBox @bind-Value="@data.IsLockout" Disabled/>
@@ -53,7 +58,7 @@
     {
         await DialogService.OpenAsync<NewUser>($"Dodaj użytkownika",
              null,
-             new DialogOptions() { Width = "700px", Height = "530px" });
+             new DialogOptions() { Width = "800px", Height = "700px" });
     }
 
     public async Task EditUser(string id)

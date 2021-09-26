@@ -24,6 +24,9 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         [DisplayName("Hasło")]
         [Required(ErrorMessage ="Hasło nie może być puste")]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\da-zA-Z]).*$",
+         ErrorMessage = "Hasło musi posiadać małą literę, dużą literę, liczbę oraz znak specjalny")]
+        [StringLength(100, ErrorMessage =("Hasło musi posiadać minimum 6 znakow"),MinimumLength =6)]
         public string Password { get; set; }
         [DisplayName("Potwierdź hasło")]
         [Required(ErrorMessage ="Potwierdź hasło nie może być puste")]
@@ -33,6 +36,20 @@ namespace RemoteProtocolsWASM.Shared.ViewModels.UserVm
         [DisplayName("Imię i nazwisko")]
         [Required(ErrorMessage = "Imię i nazwisko jest wymagane")]
         public string Name { get; set; }
+        [DisplayName("Magazyn")]
+        public string Warehouse { get; set; }
+        [DisplayName("MagazynDino")]
+        public string WarehouseDino { get; set; }
+        [DisplayName("Samochód")]
+        [RegularExpression(@"(.*[1-9].*)|(.*[.].*[1-9].*)",
+         ErrorMessage = "Pole samochód jest wymagane")]
+        public int CarId { get; set; }
+        [DisplayName("Grupa")]
+        [RegularExpression(@"(.*[1-9].*)|(.*[.].*[1-9].*)",
+         ErrorMessage = "Pole grupa jest wymagane")]
+        public int GroupId { get; set; }
+        [DisplayName("Przełożony")]
+        public string ManagerId { get; set; }
         public List<string> UserRoles { get; set; }
         public List<RoleListVm> Roles { get; set; }
         public bool IsLockout { get; set; }

@@ -12,6 +12,6 @@ namespace RemoteProtocolsWASM.Domain.Model
         public string Code { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
-        public ICollection<AspNetUsersInfo> AspNetUsersInfos { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }
